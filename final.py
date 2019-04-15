@@ -13,23 +13,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.dbQuiz'
 dbQuiz = SQLAlchemy(app)
 q=[]
 r=[]
-class NewJSONEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, Quiz):
-            return {
-                   'question'     : obj.question,
-                   'numtokens' : obj.numtokens,
-                   'numtypes'     : obj.numtypes
-            }
-        elif isinstance(obj, Experiment):
-            return {
-                   'corpus'     : obj.corpus,
-                   'numtokens' : obj.numtokens,
-                   'numtypes'     : obj.numtypes,
-                   'tokens'     : obj.tokens,
-                   'types'      :obj.types
-            }
-        return super(QuizJSONEncoder, self).default(obj)
 
 class Experiment(dbExp.Model):
     id = dbExp.Column(dbExp.Integer, primary_key=True)
@@ -169,11 +152,6 @@ def check():
     return render_template('Experiment.html', content=send, data=data, results=results, token_num=entry.numtokens, type_num=entry.numtypes, Tokens='Tokens', token=token_con, Types='Types', type=type_con)
 
 
-@app.route("/exp/<id>" , methods=['GET', 'POST'])
-def giveexp(id):
-    entry=Experiment.query.filter_by(id=id).first()
-    return jsonify(send=entry)
-
 
 
 
@@ -276,12 +254,7 @@ def checkq():
     global entry2
     global entry3
     score=0
-    #token1=0
-    #token2=0
-    #token3=0
-    #type1=0
-    #type2=0
-    #type3=0
+    
     global r
     if request.method == 'POST':
         token1=int(request.form.get('tok1'))
@@ -293,12 +266,6 @@ def checkq():
     entry1 = Quiz.query.filter_by(id=r[0]).first()
     entry2 = Quiz.query.filter_by(id=r[1]).first()
     entry3 = Quiz.query.filter_by(id=r[2]).first()
-    #q=[]
-    #r=[]
-    #for element in range(1,4):
-    #    entry=Quiz.query.filter_by(id=element).first()
-    #    q.append(entry.question) 
-    #    r.append(element) 
     
     if entry1.numtypes==int(type1) and entry1.numtokens==int(token1):
         score=score+1
@@ -307,13 +274,9 @@ def checkq():
     if entry3.numtypes==type3 and entry3.numtokens==token3:
         score=score+1
     return render_template('Quizzes.html', score=score, ques={'con':q[0], 'ans1':entry1.numtokens, 'ans2':entry1.numtypes}, ques2={'con':q[1], 'ans1':entry2.numtokens, 'ans2':entry2.numtypes}, ques3={'con':q[2], 'ans1':entry3.numtokens, 'ans2':entry3.numtypes})
-    #return render_template('Quizzes.html', score=type1, question=[{'name1':'tok1', 'name2':'type1', 'con':q[0],'ans1':entry1.numtokens, 'ans2':entry1.numtypes},{'name1':'tok2', 'name2':'type2', 'con':q[1],'ans1':entry2.numtokens, 'ans2':entry2.numtypes},{'name1':'tok3', 'name2':'type3', 'con':q[2],'ans1':entry3.numtokens, 'ans2':entry3.numtypes}])
+    
 
 
 
-#@app.route("/quiz-check", methods=['GET','POST'])
-#def checkq():
-
-app.json_encoder = NewJSONEncoder
 if __name__=='__main__':
     app.run(debug=True)
