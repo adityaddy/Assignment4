@@ -11,8 +11,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.dbExp'
 dbExp = SQLAlchemy(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.dbQuiz'
 dbQuiz = SQLAlchemy(app)
-global q
-global r
+#q
+#r
 class NewJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Quiz):
@@ -259,10 +259,11 @@ def popquiz():
 def dispq():
     data=random.sample(range(1, 6), 3)
     itr=0
-
+    global q
+    global r
     q=[]
     r=[]
-    for element in range(1,4):
+    for element in data:
         entry=Quiz.query.filter_by(id=element).first()
         q.append(entry.question)
         r.append(element)
@@ -288,15 +289,15 @@ def checkq():
         type2= int(request.form['type2'])
         token3=int(request.form['tok3'])
         type3= int(request.form['type3'])
-    entry1 = Quiz.query.filter_by(id=1).first()
-    entry2 = Quiz.query.filter_by(id=2).first()
-    entry3 = Quiz.query.filter_by(id=3).first()
-    q=[]
-    r=[]
-    for element in range(1,4):
-        entry=Quiz.query.filter_by(id=element).first()
-        q.append(entry.question) 
-        r.append(element) 
+    entry1 = Quiz.query.filter_by(id=r[0]).first()
+    entry2 = Quiz.query.filter_by(id=r[1]).first()
+    entry3 = Quiz.query.filter_by(id=r[2]).first()
+    #q=[]
+    #r=[]
+    #for element in range(1,4):
+    #    entry=Quiz.query.filter_by(id=element).first()
+    #    q.append(entry.question) 
+    #    r.append(element) 
     
     if entry1.numtypes==type1 and entry1.numtokens==token1:
         score=score+1
