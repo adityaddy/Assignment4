@@ -105,16 +105,29 @@
 
 All Quiz Content here
 
-<form action="/quiz-check">
-{% for ques in question %}
+<form action="/quiz-check" method="POST">
+
 
 <strong><p>{{ques.con}}</p></strong>
 	
-	Tokens : <input type="text" name="{{ques.name1}}" id="{{ques.id}}"><br>
-	Types : <input type="text" name="{{ques.name2}}"><br>
+	Tokens : <input type="text" name="tok1"><br>
+	Types : <input type="text" name="type1"><br>
 	{{ques.ans1}}
 	{{ques.ans2}}
-{% endfor %}
+
+	<strong><p>{{ques2.con}}</p></strong>
+	
+	Tokens : <input type="text" name="tok2"><br>
+	Types : <input type="text" name="type2"><br>
+	{{ques2.ans1}}
+	{{ques2.ans2}}
+	<strong><p>{{ques3.con}}</p></strong>
+	
+	Tokens : <input type="text" name="tok3"><br>
+	Types : <input type="text" name="type3"><br>
+	{{ques3.ans1}}
+	{{ques3.ans2}}
+
 <input type="submit" value="Submit">
 </form>
 

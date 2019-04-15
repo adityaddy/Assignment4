@@ -11,8 +11,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.dbExp'
 dbExp = SQLAlchemy(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.dbQuiz'
 dbQuiz = SQLAlchemy(app)
-#q
-#r
+q=[]
+r=[]
 class NewJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Quiz):
@@ -149,8 +149,8 @@ def expr():
 def check():
     data=[{'name':'Corpus1'}, {'name':'Corpus2'}, {'name':'Corpus3'}]
     #throws an exception if not integers
-    tokens=int(request.form['tokens'])
-    types= int(request.form['types'])
+    tokens=int(request.form.get('tokens'))
+    types= int(request.form.get('types'))
     select = request.form.get('comp_select')
     if select == 'Corpus1':
         entry=Experiment.query.filter_by(id=1).first()
@@ -160,7 +160,7 @@ def check():
         entry=Experiment.query.filter_by(id=3).first()
 
     send = entry.corpus
-    if tokens == entry.tokens and types == entry.types:
+    if tokens == entry.numtokens and types == entry.numtypes:
         results="Correct"
     else:
         results="Incorrect:"
@@ -267,7 +267,7 @@ def dispq():
         entry=Quiz.query.filter_by(id=element).first()
         q.append(entry.question)
         r.append(element)
-    return render_template('Quizzes.html', question=[{'name1':'tok1', 'name2':'type1', 'con':q[0],'id':r[0]},{'name1':'tok2', 'name2':'type2', 'con':q[1], 'id':r[1]},{'name1':'tok3', 'name2':'type3', 'con':q[2],'id':r[2]}])
+    return render_template('Quizzes.html', ques={'con':q[0]}, ques2={'con':q[1]}, ques3={'con':q[2]})
 
 
 @app.route("/quiz-check", methods=['GET','POST'])
@@ -276,19 +276,20 @@ def checkq():
     global entry2
     global entry3
     score=0
-    token1=0
-    token2=0
-    token3=0
-    type1=0
-    type2=0
-    type3=0
+    #token1=0
+    #token2=0
+    #token3=0
+    #type1=0
+    #type2=0
+    #type3=0
+    global r
     if request.method == 'POST':
-        token1=int(request.form['tok1'])
-        type1= int(request.form['type1'])
-        token2=int(request.form['tok2'])
-        type2= int(request.form['type2'])
-        token3=int(request.form['tok3'])
-        type3= int(request.form['type3'])
+        token1=int(request.form.get('tok1'))
+        type1=int(request.form.get('type1'))
+        token2=int(request.form.get('tok2'))
+        type2= int(request.form.get('type2'))
+        token3=int(request.form.get('tok3'))
+        type3= int(request.form.get('type3'))
     entry1 = Quiz.query.filter_by(id=r[0]).first()
     entry2 = Quiz.query.filter_by(id=r[1]).first()
     entry3 = Quiz.query.filter_by(id=r[2]).first()
@@ -299,24 +300,16 @@ def checkq():
     #    q.append(entry.question) 
     #    r.append(element) 
     
-    if entry1.numtypes==type1 and entry1.numtokens==token1:
+    if entry1.numtypes==int(type1) and entry1.numtokens==int(token1):
         score=score+1
     if entry2.numtypes==type2 and entry2.numtokens==token2:
         score=score+1
     if entry3.numtypes==type3 and entry3.numtokens==token3:
         score=score+1
-    
-    return render_template('Quizzes.html', score=score, question=[{'name1':'tok1', 'name2':'type1', 'con':q[0]},{'name1':'tok2', 'name2':'type2', 'con':q[1]},{'name1':'tok3', 'name2':'type3', 'con':q[2]}])
+    return render_template('Quizzes.html', score=score, ques={'con':q[0], 'ans1':entry1.numtokens, 'ans2':entry1.numtypes}, ques2={'con':q[1], 'ans1':entry2.numtokens, 'ans2':entry2.numtypes}, ques3={'con':q[2], 'ans1':entry3.numtokens, 'ans2':entry3.numtypes})
+    #return render_template('Quizzes.html', score=type1, question=[{'name1':'tok1', 'name2':'type1', 'con':q[0],'ans1':entry1.numtokens, 'ans2':entry1.numtypes},{'name1':'tok2', 'name2':'type2', 'con':q[1],'ans1':entry2.numtokens, 'ans2':entry2.numtypes},{'name1':'tok3', 'name2':'type3', 'con':q[2],'ans1':entry3.numtokens, 'ans2':entry3.numtypes}])
 
-@app.route("/quizr" , methods=['GET', 'POST'])
-def givequiz():
-    global q
-    q=[]
-    data=random.sample(range(1, 6), 3)
-    for element in data:
-        entry=Quiz.query.filter_by(id=element).first()
-        q.append(entry)
-    return jsonify(send=q)
+
 
 #@app.route("/quiz-check", methods=['GET','POST'])
 #def checkq():
