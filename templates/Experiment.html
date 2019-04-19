@@ -17,7 +17,7 @@
       <!-- Custom CSS -->
       <link href="../static/css/style.css" rel="stylesheet">
       <script type="text/javascript" src = 'tabs.js'></script>
-      <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-67558473-1', 'auto');ga('send', 'pageview');</script>	
+      <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-67558473-1', 'auto');ga('send', 'pageview');</script>
    </head>
    <body id="page-top" class="index">
       <div id="top">
@@ -60,7 +60,7 @@
                         </li>
                      </ul>
                   </div>
-                  <!-- /.navbar-collapse -->  
+                  <!-- /.navbar-collapse -->
                </div>
                <!-- /.container-fluid -->
             </nav>
@@ -110,7 +110,7 @@
                      <form  method="POST" action="{{ url_for('expr') }}">
                         <div>
                            <div class="form-group">
-                              <span><strong> select </strong></span>
+                              <span><strong> Select: </strong></span>
                               <select name="comp_select" class="form-control">
                                  {% for o in data %}
                                  <option value="{{ o.name }}">{{ o.name }}</option>
@@ -128,16 +128,16 @@
                         <div class="input-group-prepend">
                            <span class="input-group-text" id="inputGroup-sizing-lg">Tokens</span>
                         </div>
-                        <input type="text" name="tokens" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm"> 
+                        <input type="text" name="tokens" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
                         <div class="input-group-prepend">
                            <span class="input-group-text" id="inputGroup-sizing-lg">Types</span>
                         </div>
-                        <input type="text" name="types" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm"> 
+                        <input type="text" name="types" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
                         <br>
                         <br><button type="submit" class="btn btn-success">Submit</button>
                      </form>
                      <br>
-                     <strong>{{ results }}</strong>
+                     <strong><big>{{ results }}</big></strong>
                      <br>
                      {% endif %}
                      <hr>
@@ -148,7 +148,7 @@
                         <tr>
                            {% for your_list_element in token %}
                            <td>
-                              {{ your_list_element }} 
+                              {{ your_list_element }}
                            </td>
                            {% endfor %}
                         </tr>
@@ -162,7 +162,7 @@
                         <tr>
                            {% for your_list_element in type %}
                            <td>
-                              {{ your_list_element }}  
+                              {{ your_list_element }}
                            </td>
                            {% endfor %}
                         </tr>
@@ -235,7 +235,7 @@
    <script src="../static/vendors/owl-carousel/owl.carousel.js"></script>
    <script type="text/javascript">
       $(document).ready(function() {
-      	 
+
       	  var owl = $("#owl-demo");
       	  owl.owlCarousel({
       	      navigation: true,
@@ -246,7 +246,7 @@
       	      /* autoPlay : 3000,
       	      stopOnHover : true */
       	  });
-      	  
+
       	  //owl for partner institutions
       	  var owl = $("#owl-partner-institutions");
       	  owl.owlCarousel({
@@ -259,16 +259,16 @@
       	      stopOnHover : true,
       	      items : 8,
       	  });
-      	 
-      	
-      
+
+
+
        //owl for aboutus
         var owl = $("#owl-aboutus");
         owl.owlCarousel({
             navigation: true,
             singleItem:true
         });
-       
+
       });
    </script>
 </html>

@@ -1,0 +1,10 @@
+flask
+flask_testing
+requests
+nltk
+josn
+random
+string
+flask_sqlalchemy
+nltk.stem
+nltk.tokenize

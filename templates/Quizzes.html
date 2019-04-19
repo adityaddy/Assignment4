@@ -17,7 +17,7 @@
       <!-- Custom CSS -->
       <link href="../static/css/style.css" rel="stylesheet">
       <script type="text/javascript" src = 'tabs.js'></script>
-      <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-67558473-1', 'auto');ga('send', 'pageview');</script>	
+      <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-67558473-1', 'auto');ga('send', 'pageview');</script>
    </head>
    <body id="page-top" class="index">
       <div id="top">
@@ -60,7 +60,7 @@
                         </li>
                      </ul>
                   </div>
-                  <!-- /.navbar-collapse -->  
+                  <!-- /.navbar-collapse -->
                </div>
                <!-- /.container-fluid -->
             </nav>
@@ -109,8 +109,8 @@
                      <h1 class="text-h2-lightblue">Tokens & Types</h1>
                      <form action="/quiz-check" method="POST">
                         <strong>
-                           <p>{{ques.con}}</p>
-						</strong>
+                           <p>1. {{ques1.con}}</p>
+						            </strong>
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="inputGroup-sizing-lg">Tokens</span>
 						 </div>
@@ -119,14 +119,13 @@
 							<span class="input-group-text" id="inputGroup-sizing-lg">Types</span>
 						 </div>
 						<input type="text" name="type1" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm"><br>
-                        {% if ques %}
-						 <p><strong>Answer: {{ques.ans1}}
-							{{ques.ans2}} </strong></p>
-						
-						{% endif %}
-                        <strong>
-                           <p>{{ques2.con}}</p>
-						</strong>
+              {% if ques1.ans2 %}
+    					 <p>Answer:  {{ques1.ans1}}	{{ques1.ans2}} </p><br>
+    				  {% endif %}
+
+              <strong>
+                 <p>2. {{ques2.con}}</p>
+						  </strong>
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="inputGroup-sizing-lg">Tokens</span>
 						 </div>
@@ -135,15 +134,14 @@
 							<span class="input-group-text" id="inputGroup-sizing-lg">Types</span>
 						 </div>
 						<input type="text" name="type2" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm"><br>
-						{% if ques2 %}
-						 <p><strong>Answer: {{ques2.ans1}}
-							{{ques2.ans2}} </strong></p>
-						
-						{% endif %}
-						<strong>
-                           <p>{{ques3.con}}</p>
-                        </strong>
-						<div class="input-group-prepend">
+              {% if ques2.ans2 %}
+               <p>Answer:  {{ques2.ans1}}	{{ques2.ans2}} </p><br>
+              {% endif %}
+
+              <strong>
+                 <p>3. {{ques3.con}}</p>
+              </strong>
+            <div class="input-group-prepend">
 							<span class="input-group-text" id="inputGroup-sizing-lg">Tokens</span>
 						 </div>
 						<input type="text" name="tok3" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm"><br>
@@ -151,14 +149,21 @@
 							<span class="input-group-text" id="inputGroup-sizing-lg">Types</span>
 						 </div>
 						<input type="text" name="type3" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm"><br>
-						{% if ques3 %}
-						<p><strong>Answer: {{ques3.ans1}}
-						   {{ques3.ans2}} </strong></p>
-					   
-					   {% endif %}
+            {% if ques3.ans2 %}
+             <p>Answer:  {{ques3.ans1}}	{{ques3.ans2}} </p><br>
+            {% endif %}
+
                         <input type="submit" value="Submit" class="btn btn-success">
                      </form>
-                     <p> Score : {{score}}</p>
+
+                     <br>
+                     {% if ques3.ans2 %}
+                      <p><strong><big> Score : {{score}}/3 </big></strong></p>
+                     {% endif %}
+
+                     {% if message %}
+                      <p><strong> {{ message }} </strong></p>
+                     {% endif %}
                   </div>
                </div>
             </div>
@@ -226,7 +231,7 @@
    <script src="../static/vendors/owl-carousel/owl.carousel.js"></script>
    <script type="text/javascript">
       $(document).ready(function() {
-      	 
+
       	  var owl = $("#owl-demo");
       	  owl.owlCarousel({
       	      navigation: true,
@@ -237,7 +242,7 @@
       	      /* autoPlay : 3000,
       	      stopOnHover : true */
       	  });
-      	  
+
       	  //owl for partner institutions
       	  var owl = $("#owl-partner-institutions");
       	  owl.owlCarousel({
@@ -250,16 +255,16 @@
       	      stopOnHover : true,
       	      items : 8,
       	  });
-      	 
-      	
-      
+
+
+
        //owl for aboutus
         var owl = $("#owl-aboutus");
         owl.owlCarousel({
             navigation: true,
             singleItem:true
         });
-       
+
       });
    </script>
 </html>
